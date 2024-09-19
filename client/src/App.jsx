@@ -29,8 +29,6 @@ function App() {
     dispatch(checkAuth());
   }, [dispatch]);
 
-  console.log(isLoading, isAuthenticated);
-
   if (isLoading) return <Skeleton className="w-full h-full rounded-full" />;
 
   return (
