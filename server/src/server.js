@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import authRouter from "./routes/auth/auth-routes";
 const adminProductsRouter = require("./routes/admin/products-routes");
+const shopProductRouter = require("./routes/shop/products-routes");
 
 mongoose
   .connect("mongodb+srv://rkddus3177:qwer1234@youtube.gobbp.mongodb.net/")
@@ -32,5 +33,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
+app.use("/api/shop/products", shopProductRouter);
 
 app.listen(PORT, () => console.log(`🔥Server app listen on ${PORT}`));
