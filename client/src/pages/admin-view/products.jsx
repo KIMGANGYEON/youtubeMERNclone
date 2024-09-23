@@ -12,6 +12,7 @@ import { addProductFormElements } from "@/config";
 import { useToast } from "@/hooks/use-toast";
 import {
   addNewProduct,
+  deleteProduct,
   editProduct,
   fetchAllProducts,
 } from "@/store/admin/products-slice";
@@ -25,7 +26,7 @@ const initialFormData = {
   category: "",
   brand: "",
   price: "",
-  selfPrice: "",
+  salePrice: "",
   totalStock: "",
 };
 
@@ -73,9 +74,18 @@ const AdminProducts = () => {
         );
   }
 
+  function handleDelete(getCurrentProductId) {
+    console.log(getCurrentProductId);
+    dispatch(deleteProduct(getCurrentProductId)).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+      }
+    });
+  }
+
   function isFormvalid() {
     return Object.keys(formData)
-      .map((key) => formData[key] === "")
+      .map((key) => formData[key] !== "")
       .every((item) => item);
   }
 
@@ -99,6 +109,7 @@ const AdminProducts = () => {
                 setCurrentEditedId={setCurrentEditedId}
                 product={productItem}
                 key={productItem._id}
+                handleDelete={handleDelete}
               />
             ))
           : null}
